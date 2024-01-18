@@ -1,27 +1,44 @@
 .product-card{
     border: 1px solid black;
     width: 250px;
-    height: 300px;
-    /* display: flex;
-    flex-direction: column; */
 }
 
-.product-details{
+.product-details {
+   
     display: grid;
-    grid-template-areas: 
-    "name" "price"
-    "description" "description"
-    "" "link";
-}
+    grid-template-areas:
+      "name price"
+      "rating retailer"
+      "description description"
+      "description description"
+      ". link"; /* Empty grid area for the link, assuming you want it to span only one column */
+  }
+  
+  .product-image-container{
+    height: 100px;
+    width: auto;
+  }
 
-.product-name{
-    grid-area: "name";
-}
+  .product-name {
+    grid-area: name;
+  }
+  
+  .product-price {
+    grid-area: price;
+  }
+  
+  .product-description {
+    grid-area: description;
+  }
+  
+  .product-link {
+    grid-area: link;
+  }
 
-.product-price{
-    grid-area: "price";
-}
+  .product-rating{
+    grid-area: rating;
+  }
 
-.product-description{
-    grid-area: "description";
-}
+  .product-retailer{
+    grid-area: retailer;
+  }

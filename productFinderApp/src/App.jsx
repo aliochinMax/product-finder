@@ -4,7 +4,7 @@ function App() {
 
   return (
     <div>
-    <ProductCard img="hello.png" name="product" description="description" price="price"></ProductCard>
+    <ProductCard retailer="Amazon" img="hello.png" rating="2.2"name="product" description="description" price="price"></ProductCard>
     </div>
   )
 }
