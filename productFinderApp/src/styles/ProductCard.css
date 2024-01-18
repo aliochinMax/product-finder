@@ -1,0 +1,27 @@
+.product-card{
+    border: 1px solid black;
+    width: 250px;
+    height: 300px;
+    /* display: flex;
+    flex-direction: column; */
+}
+
+.product-details{
+    display: grid;
+    grid-template-areas: 
+    "name" "price"
+    "description" "description"
+    "" "link";
+}
+
+.product-name{
+    grid-area: "name";
+}
+
+.product-price{
+    grid-area: "price";
+}
+
+.product-description{
+    grid-area: "description";
+}
