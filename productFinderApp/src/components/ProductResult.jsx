@@ -8,8 +8,8 @@ const RealTimeProductSearch = () => {
   const [error, setError] = useState(null);
 
   const fetchData = async () => {
-    const apiKey = import.meta.env.REACT_APP_RAPIDAPI_KEY;
-    const apiHost = import.meta.env.REACT_APP_RAPIDAPI_HOST;
+    // const apiKey = import.meta.env.REACT_APP_RAPIDAPI_KEY;
+    // const apiHost = import.meta.env.REACT_APP_RAPIDAPI_HOST;
 
     const options = {
       method: 'GET',
@@ -22,13 +22,15 @@ const RealTimeProductSearch = () => {
         sort_by: 'LOWEST_PRICE',
       },
       headers: {
-        'X-RapidAPI-Key': '069d45defemsh04d1fc0bc80dd35p1ae318jsna08154559401',
-        'X-RapidAPI-Host': 'real-time-product-search.p.rapidapi.com',
+        'X-RapidAPI-Key':import.meta.env.VITE_REACT_APP_RAPIDAPI_KEY,
+        'X-RapidAPI-Host':import.meta.env.VITE_REACT_APP_RAPIDAPI_HOST
       },
     };
 
     try {
       setLoading(true);
+
+
       const response = await axios.request(options);
       setProductData(response.data);
     } catch (error) {
