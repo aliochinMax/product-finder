@@ -5,20 +5,25 @@ const convertRatingToStars = (rating) => {
    const intRating = Math.trunc(rating);
    const remainder = rating - intRating;
    const stars = [];
-   // Add full stars
+   // Adds full stars
    for (let i = 0; i < intRating; i++) {
      stars.push(<IoIosStar key={i} />);
    }
-   // Add half star if remainder is greater than 0.2
+   // Adds half star if remainder is greater than 0.2
    if (remainder > 0.201) {
      stars.push(<IoIosStarHalf key="half" />);
    }
-   // Add empty stars to reach a total of 5 stars
+   // Adds empty stars to reach a total of 5 stars
    while (stars.length < 5) {
      stars.push(<IoIosStarOutline key={stars.length} />);
    }
    return stars;
  };
+
+ const openRetailerSite = (link) => {
+  window.open(link, '_blank');
+};
+
 
 
 function ProductCard({img,name,price,isBest,description,link, rating, retailer}){
@@ -35,7 +40,7 @@ function ProductCard({img,name,price,isBest,description,link, rating, retailer})
           <span key={index}>{star}</span>
         ))}</div> <div className='product-retailer'>from {retailer}</div>
          <p className='product-description'>{description}</p> 
-         <button className='product-link'>Go to Buy</button>
+         <button className='product-link' onClick={() => openRetailerSite(link)}>Go to Buy</button>
         </div>
     </div>
    )
