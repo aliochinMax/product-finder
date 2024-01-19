@@ -1,7 +1,8 @@
 import { useState } from 'react'
 import ProductCard from './components/ProductCard'
 import ProductCarousel from './components/ProductCarousel'
-import ProductGrid from './components/ProductGrid';
+import ProductGrid from './components/ProductGrid';import RealTimeProductSearch from './components/ProductResult'
+
 function App() {
   const products = [
     {
@@ -72,7 +73,9 @@ function App() {
   return (
     <div>
     <ProductGrid products={products}/>
-    </div>
+    
+<RealTimeProductSearch />
+</div>
   )
 }
 
