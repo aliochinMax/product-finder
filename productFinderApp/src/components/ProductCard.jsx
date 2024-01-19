@@ -21,13 +21,16 @@ const convertRatingToStars = (rating) => {
  };
 
 
-function ProductCard({img,name,price,isExact,description,link, rating, retailer}){
-   const stars = convertRatingToStars(rating);
-   return(
-   <div className="product-card">
+function ProductCard({img,name,price,isBest,description,link, rating, retailer}){
+  
+  const stars = convertRatingToStars(rating);
+  const cardClassName = `product-card ${isBest ? 'best-value' : ''}`;
+
+  return(
+   <div className={cardClassName}>
         <div className="product-image-container"><img className="product-image" src={img}></img></div>
         <div className="product-details">
-         <h3 className="product-name">{name}</h3> <h3 className='product-price'>{price}</h3>
+         <h3 className="product-name">{name}</h3> <h3 className='product-price'>£{price}</h3>
          <div className="product-rating"> {stars.map((star, index) => (
           <span key={index}>{star}</span>
         ))}</div> <div className='product-retailer'>from {retailer}</div>

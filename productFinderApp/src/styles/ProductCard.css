@@ -3,6 +3,9 @@
     width: 250px;
 }
 
+.best-value{
+  border: 1px solid red !important;
+}
 .product-details {
    
     display: grid;
