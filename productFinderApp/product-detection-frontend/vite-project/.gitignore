@@ -23,6 +23,3 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
-
-product-finder/productFinderApp/product-detection-backend/google-cloud-key.json
-

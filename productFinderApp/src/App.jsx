@@ -1,5 +1,9 @@
 import { useState } from 'react'
+
 import RealTimeProductSearch from './components/ProductResult'
+
+import ImageUploader from '../product-detection-frontend/vite-project/src/ImageUploader'
+
 
 function App() {
 
@@ -8,7 +12,13 @@ function App() {
     <div>HELLOOO!!!!!!!!!! WORRLLLLDDD!!!!
 <RealTimeProductSearch />
 
-</div>
+
+
+
+    <h1>Product Detection App</h1>
+    <ImageUploader />
+    </div>
+
   )
 }
 
