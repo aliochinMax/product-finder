@@ -4,7 +4,7 @@ const { ImageAnnotatorClient } = require('@google-cloud/vision');
 const cors = require('cors');
 
 const app = express();
-const port = 3002;
+const port = 3001;
 
 const upload = multer({ dest: 'uploads/' });
 

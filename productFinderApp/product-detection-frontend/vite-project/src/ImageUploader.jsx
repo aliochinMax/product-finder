@@ -12,7 +12,7 @@ const ImageUploader = () => {
       const formData = new FormData();
       formData.append('image', selectedFile);
 
-      const response = await fetch('http://localhost:3002/upload', {
+      const response = await fetch('http://localhost:3001/upload', {
         method: 'POST',
         body: formData,
       });
