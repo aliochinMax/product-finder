@@ -3,6 +3,7 @@ import axios from 'axios';
 import errorImg from '../assets/images/errorImgCouldNotBeFound.png'
 import ProductGrid from './ProductGrid';
 
+
 const RealTimeProductSearch = () => {
   const [productName, setProductName] = useState('');
   const [productData, setProductData] = useState(null);
@@ -15,8 +16,8 @@ const RealTimeProductSearch = () => {
       // Check if product.offer.shipping exists
       const shippingValue = product.offer.shipping ? ~~product.offer.shipping.replace(/£/g, '') : 0;
       const imagesValue = Array.isArray(product.product_photos) ? product.product_photos : [product.product_photos];
- 
-  
+
+
       return {
         name: product.product_title,
         description: product.product_description,
