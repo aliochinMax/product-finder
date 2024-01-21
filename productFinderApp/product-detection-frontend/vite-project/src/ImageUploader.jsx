@@ -1,8 +1,8 @@
-// ImageUploader.jsx
 import React, { useState } from 'react';
 import axios from 'axios';
+import ProductSet from './ProductSet'; 
 
-const ImageUploader = () => {
+const ImageUploader = ({ onImageAnalysis }) => {
   const [selectedFile, setSelectedFile] = useState(null);
   const [results, setResults] = useState(null);
 
@@ -21,6 +21,8 @@ const ImageUploader = () => {
         },
       });
 
+      // Pass the data to the parent component
+      onImageAnalysis(response.data);
       setResults(response.data);
     } catch (error) {
       console.error('Error uploading image:', error);
@@ -44,6 +46,13 @@ const ImageUploader = () => {
             ))}
           </ul>
 
+          <h2>Labels:</h2>
+          <ul>
+            {results.labels.map((label, index) => (
+              <li key={index}>{label}</li>
+            ))}
+          </ul>
+
           <h2>Web Entities:</h2>
           <ul>
             {results.webEntities.map((entity, index) => (
@@ -51,16 +60,8 @@ const ImageUploader = () => {
             ))}
           </ul>
 
-          <h2>Pages with Matching Images:</h2>
-          <ul>
-            {results.pagesWithMatchingImages.map((page, index) => (
-              <li key={index}>
-                <a href={page} target="_blank" rel="noopener noreferrer">
-                  {page}
-                </a>
-              </li>
-            ))}
-          </ul>
+          {/* Pass visionData to ProductSet component */}
+          <ProductSet visionData={results} />
         </div>
       )}
     </div>

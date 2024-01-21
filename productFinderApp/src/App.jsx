@@ -1,14 +1,22 @@
-import { useState } from 'react'
-import ImageUploader from '../product-detection-frontend/vite-project/src/ImageUploader'
+import React, { useState } from 'react';
+import ImageUploader from '../product-detection-frontend/vite-project/src/ImageUploader';
+import ProductSet from '../product-detection-frontend/vite-project/src/ProductSet';
 
-function App() {
+const App = () => {
+  const [imageAnalysisData, setImageAnalysisData] = useState(null);
+
+  const handleImageAnalysis = (data) => {
+    // Update state with data from ImageUploader component
+    setImageAnalysisData(data);
+  };
 
   return (
     <div>
-    <h1>Product Detection App</h1>
-    <ImageUploader />
+      <ImageUploader onImageAnalysis={handleImageAnalysis} />
+      {imageAnalysisData && <ProductSet visionData={imageAnalysisData} />}
+    
     </div>
-  )
-}
+  );
+};
 
-export default App
+export default App;
