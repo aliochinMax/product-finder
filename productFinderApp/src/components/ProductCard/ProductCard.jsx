@@ -64,7 +64,7 @@ function ProductCard({images,name,price,isBest,description,link, rating, retaile
       ) : (
         // Handle the case when images is not an array or is empty
         <div className="product-image-container">
-          <img className="product-image" src="default-image.jpg" alt={name}></img>
+          <img className="product-image" src="../../assets/images/errorImgCouldNotBeFound.png" alt={name}></img>
         </div>
       )}
         <div className="product-details">
