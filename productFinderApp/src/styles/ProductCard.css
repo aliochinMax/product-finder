@@ -1,0 +1,79 @@
+:root{
+  --product-card-width: 500px;
+}
+
+.product-card{
+    border: 1px solid black;
+    width: 500px;
+    display:flex;
+    flex-direction: column;
+    gap:50px;
+    
+}
+
+.best-value{
+  border: 1px solid red !important;
+}
+.product-details {
+   
+    display: grid;
+    grid-template-areas:
+      "name price"
+      "rating retailer"
+      "description description"
+      "description description"
+      ". link"; /* Empty grid area for the link, assuming you want it to span only one column */
+  }
+  
+
+  .product-image{
+    width: var(--product-card-width);
+    padding: 10px;
+  }
+  .product-image-carousel {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 24px; /* Adjust the font size as needed */
+    color: white; /* Set the arrow color */
+    background-color: rgba(0, 0, 0, 0.5); /* Set the background color */
+    border: none;
+    cursor: pointer;
+    outline: none;
+    padding: 10px; /* Adjust the padding as needed */
+  }
+  
+  .arrow-icon {
+    color: white; /* Set the arrow color */
+  }
+  
+  .left-arrow {
+    left: 10px; /* Adjust the distance from the left */
+  }
+  
+  .right-arrow {
+    right: 10px; /* Adjust the distance from the right */
+  }
+  .product-name {
+    grid-area: name;
+  }
+  
+  .product-price {
+    grid-area: price;
+  }
+  
+  .product-description {
+    grid-area: description;
+  }
+  
+  .product-link {
+    grid-area: link;
+  }
+
+  .product-rating{
+    grid-area: rating;
+  }
+
+  .product-retailer{
+    grid-area: retailer;
+  }

@@ -1,11 +1,34 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import errorImg from '../assets/images/errorImgCouldNotBeFound.png'
+import ProductGrid from './ProductGrid';
 
 const RealTimeProductSearch = () => {
   const [productName, setProductName] = useState('');
   const [productData, setProductData] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+
+  const modifyData = (products) => {
+
+    return productData.data.map((product) => {
+      // Check if product.offer.shipping exists
+      const shippingValue = product.offer.shipping ? ~~product.offer.shipping.replace(/£/g, '') : 0;
+      const imagesValue = Array.isArray(product.product_photos) ? product.product_photos : [product.product_photos];
+ 
+  
+      return {
+        name: product.product_title,
+        description: product.product_description,
+        retailer: product.offer.store_name,
+        rating: product.offer.store_rating,
+        price: ~~product.offer.price.replace(/£/g, ''),
+        shipping: shippingValue,
+        link: product.offer.offer_page_url,
+        images: imagesValue,
+      };
+    });
+  }
 
   const fetchData = async () => {
     // const apiKey = import.meta.env.REACT_APP_RAPIDAPI_KEY;
@@ -66,21 +89,8 @@ const RealTimeProductSearch = () => {
 
       {Array.isArray(productData?.data) && productData.data.length > 0 && (
   <div>
-    {productData.data.map((product, index) => (
-      <div key={index}>
-        <h2>{product.product_title}</h2>
-        <p>{product.product_description}</p>
-        <p>Store Name: {product.offer.store_name}</p>
-        <p>Store Rating: {product.offer.store_rating}</p>
-        <p>Price: {product.offer.price}</p>
-        <p>Shipping: {product.offer.shipping}</p>
-        <p>
-          <a href={product.offer.offer_page_url} target="_blank" rel="noopener noreferrer">
-            Retailer Website
-          </a>
-        </p>
-      </div>
-    ))}
+    {console.log(productData)}
+    <ProductGrid products={modifyData(productData)}/>
   </div>
 )}
 
