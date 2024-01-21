@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-
+import errorImg from '../assets/images/errorImgCouldNotBeFound.png'
 import ProductGrid from './ProductGrid';
 
 const RealTimeProductSearch = () => {
@@ -10,14 +10,24 @@ const RealTimeProductSearch = () => {
   const [error, setError] = useState(null);
 
   const modifyData = (products) => {
-    return productData.data.map((product) => ({
-      name: product.product_title,
-      description: product.product_description,
-      retailer: product.offer.store_name,
-      rating: product.offer.store_rating,
-      price: product.offer.price + product.offer.shipping,
-      link: product.offer.offer_page_url,
-    }));
+
+    return productData.data.map((product) => {
+      // Check if product.offer.shipping exists
+      const shippingValue = product.offer.shipping ? ~~product.offer.shipping.replace(/£/g, '') : 0;
+      const imagesValue = Array.isArray(product.product_photos) ? product.product_photos : [product.product_photos];
+ 
+  
+      return {
+        name: product.product_title,
+        description: product.product_description,
+        retailer: product.offer.store_name,
+        rating: product.offer.store_rating,
+        price: ~~product.offer.price.replace(/£/g, ''),
+        shipping: shippingValue,
+        link: product.offer.offer_page_url,
+        images: imagesValue,
+      };
+    });
   }
 
   const fetchData = async () => {
@@ -77,6 +87,7 @@ const RealTimeProductSearch = () => {
 
       {Array.isArray(productData?.data) && productData.data.length > 0 && (
   <div>
+    {console.log(productData)}
     <ProductGrid products={modifyData(productData)}/>
   </div>
 )}

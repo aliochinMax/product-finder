@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import ProductCard from './ProductCard';
+import ProductCard from './ProductCard/ProductCard';
 import '../styles/ProductGrid.css'
 const ProductGrid = ({ products }) => {
   const itemsPerRow = 3;

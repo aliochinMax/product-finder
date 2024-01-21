@@ -3,7 +3,7 @@ import React from 'react';
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
-import ProductCard from './ProductCard'; // Assuming you have a ProductCard component
+import ProductCard from './ProductCard/ProductCard'; // Assuming you have a ProductCard component
 
 const ProductCarousel = ({ products }) => {
   // Sort products based on price (from lowest to highest)
