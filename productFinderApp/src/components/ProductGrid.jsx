@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import ProductCard from './ProductCard/ProductCard';
 import '../styles/ProductGrid.css'
 const ProductGrid = ({ products }) => {
-  const itemsPerRow = 3;
+  //Controls 
+  const itemsPerRow = 3; 
   const rowsPerLoad = 2;
 
   const [loadedRows, setLoadedRows] = useState(rowsPerLoad);

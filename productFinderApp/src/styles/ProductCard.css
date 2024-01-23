@@ -1,15 +1,60 @@
 :root{
   --product-card-width: 500px;
+  --product-card-height: fit-content;
+  --modal-max-width: 20%;
+  --modal-max-height: 10%;
+  --image-container-height: 400px;
+  --image-container-width:100%;
+  --card-border-radius: 25px;
+  
+  --color-highlight: aqua;
+  --color-primary: beige;
+}
+
+.product-link{
+  border-radius: 100px;
+  height: 80px;
+  width: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--color-highlight);
+  color: grey;
+  font-size: 3em;
 }
 
 .product-card{
     border: 1px solid black;
-    width: 500px;
+    width: var(--product-card-width);
+    height: var(--product-card-height);
+    background-color: var(--color-primary);
     display:flex;
     flex-direction: column;
     gap:50px;
-    
+    border-radius: var(--card-border-radius);
 }
+
+.product-image-container{
+  height: var(--image-container-height);
+  width: var(--image-container-width);
+  border-radius: var(--card-border-radius);
+  padding: 0;
+  margin: 0;
+}
+
+.product-modal-image-container{
+  height: 100%;
+  width:var(--modal-max-width);
+}
+
+.product-image{
+  height: 100%;
+  width: 100%;
+  border-radius: var(--card-border-radius);
+  align-self: center;
+  justify-self: center;
+}
+
 
 .best-value{
   border: 1px solid red !important;
@@ -22,44 +67,28 @@
       "rating retailer"
       "description description"
       "description description"
-      ". link"; /* Empty grid area for the link, assuming you want it to span only one column */
+      ". link"; 
   }
   
 
-  .product-image{
-    width: var(--product-card-width);
-    padding: 10px;
-  }
-  .product-image-carousel {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    font-size: 24px; /* Adjust the font size as needed */
-    color: white; /* Set the arrow color */
-    background-color: rgba(0, 0, 0, 0.5); /* Set the background color */
-    border: none;
-    cursor: pointer;
-    outline: none;
-    padding: 10px; /* Adjust the padding as needed */
-  }
+ 
   
-  .arrow-icon {
-    color: white; /* Set the arrow color */
-  }
-  
-  .left-arrow {
-    left: 10px; /* Adjust the distance from the left */
-  }
-  
-  .right-arrow {
-    right: 10px; /* Adjust the distance from the right */
-  }
+
   .product-name {
     grid-area: name;
+    width: calc(var(--product-card-width)/1.4);
   }
   
-  .product-price {
+  .product-price-details {
     grid-area: price;
+    width: fit-content;
+  }
+
+  .product-price{
+    background-color: var(--color-highlight);
+    width: fit-content;
+    padding: 10px;
+    border-radius: var(--card-border-radius);
   }
   
   .product-description {
@@ -76,4 +105,61 @@
 
   .product-retailer{
     grid-area: retailer;
+  }
+
+  .see-more{
+    font-weight: bold;
+  }
+  .modal{
+    overflow: hidden; 
+    
+    
+  }
+ 
+  .modal-overlay {
+    
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5); 
+    z-index: 1000; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0;
+    border: none;
+    overflow: hidden; 
+  }
+
+  .react-responsive-modal-modal {
+    padding: 0 !important;
+    background: #fff !important;
+    overflow: hidden !important;
+  }
+
+  .slick-dots {
+    position: absolute !important;
+    bottom: 10px !important; 
+    left: 50% !important; 
+    transform: translateX(-50%); 
+    z-index: 1; 
+  }
+  .slick-slider {
+    width: 100%;
+    max-height: 100%;
+    
+  }
+  
+  .slick-list {
+    height: 100%;
+    
+  }
+  
+  .slick-slide {
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
