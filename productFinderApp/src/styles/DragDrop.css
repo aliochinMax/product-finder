@@ -1,0 +1,34 @@
+:root {
+    --color-main-dark: #0d0106;
+    --color-main-light: #fbfbff;
+    --color-accent-pop: #ff331f;
+    --color-accent-dark: #3626a7;
+    --color-accent-light: #657ed4;
+    font-family: "Lexend Zetta", sans-serif;
+    font-weight: 900;
+    text-transform: uppercase;
+}
+
+
+.drag-drop {
+    margin: 50px auto; /* Updated to use auto for horizontal centering */
+    color: #3626a7;
+    border: solid 10px var(--color-accent-dark);
+    width: 800px;
+    height: 300px;
+    border-radius: 40px;
+    font-family: "Lexend Zetta", sans-serif;
+    font-weight: 900;
+    text-transform: uppercase;
+    display: flex;
+    align-items: center; /* Vertically center content */
+    justify-content: center; /* Horizontally center content */
+    cursor: pointer; /* Add a pointer cursor to indicate the drag and drop area */
+  }
+  
+  .drag-drop:hover {
+    background-color: #3626a7;
+    color: var(--color-main-light);
+    border: 10px solid var(--color-accent-light);
+  }
+  

@@ -1,0 +1,70 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Lexend+Zetta:wght@100..900&display=swap');
+
+:root {
+  --product-card-width: 500px;
+  --product-card-height: fit-content;
+  --modal-max-width: 20%;
+  --modal-max-height: 10%;
+  --image-container-height: 400px;
+  --image-container-width: 400px;
+  --card-border-radius: 40px;
+  --color-main-dark: #0d0106;
+  --color-main-light: #fbfbff;
+  --color-accent-pop: #ff331f;
+  --color-accent-dark: #3626a7;
+  --color-accent-light: #657ed4;
+  font-family: "Lexend Zetta", sans-serif;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.center-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-family: "Lexend Zetta", sans-serif;
+    font-weight: 900;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+    margin-top: 10px;
+  }
+  
+  .button-container {
+    display: flex;
+    flex-direction: row; /* Updated to make buttons align horizontally */
+    align-items: center;
+    gap: 10px; /* Adjust the gap between buttons as needed */
+    margin-bottom: 20px;
+  }
+  
+  .file-input-container {
+    position: relative;
+  }
+  
+  .file-input {
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0;
+  }
+  
+  .upload-image-button,
+  .submit-upload {
+    display: inline-block;
+    padding: 10px;
+    background-color: #3626a7;
+    color: #fff;
+    cursor: pointer;
+    border-radius: 40px;
+    border: none;
+    font-family: "Lexend Zetta", sans-serif;
+    font-weight: 900;
+    text-transform: uppercase;
+  }
+  
+  .upload-image-button:hover,
+  .submit-upload:hover {
+    background-color: var(--color-accent-pop);
+  }
