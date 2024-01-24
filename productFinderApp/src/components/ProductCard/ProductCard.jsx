@@ -72,7 +72,7 @@ function ProductCard({ images, name, price, isBest, description, link, rating, r
   const truncatedDescription = isDescriptionExpanded ? description : truncateDescription(description);
 
 
-  console.log(`${name}, ${shipping}, ${shippingPrice}`)
+  // console.log(`${name}, ${shipping}, ${shippingPrice}`)
   return (
     <div className={cardClassName}>
        {Array.isArray(images) && images.length > 0 ? (

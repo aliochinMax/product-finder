@@ -11,7 +11,6 @@ import { ItemTypes } from './components/ItemTypes';
 import ImageAnalysis from './components/imageAnalysis';
 import LogoJumbotron from './components/ProductCard/LogoJumbo';
 
-
 const handleDrop = ({ over }) => {
   if (over) {
     console.log('Dropped over:', over);
@@ -22,6 +21,7 @@ const App = () => {
   const [products, setProducts] = useState([]);
 
   return (
+    <>
     <DndProvider backend={HTML5Backend}>
       <div>
         <LogoJumbotron />
@@ -33,6 +33,7 @@ const App = () => {
         <ImageAnalysis />
       </div>
     </DndProvider>
+    </>
   );
 };
 

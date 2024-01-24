@@ -7,6 +7,7 @@ import { useDrop } from "react-dnd";
 import { ItemTypes } from "./ItemTypes";
 import heic2any from "heic2any";
 import { imageFileResizer } from "react-image-file-resizer";
+import ProductCarousel from "./ProductCarousel";
 
 const RealTimeProductSearch = () => {
   const [productName, setProductName] = useState("");
@@ -238,7 +239,8 @@ const handleImageUpload = async (imageFile) => {
         {error && <p>Error: {error.message}</p>}
         {Array.isArray(productData?.data) && productData.data.length > 0 && (
           <div>
-            {console.log(productData)}
+            {/* {console.log(productData)} */}
+            <ProductCarousel products={modifyData(productData)}/>
             <ProductGrid products={modifyData(productData)} />
           </div>
         )}

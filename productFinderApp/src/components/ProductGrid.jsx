@@ -17,7 +17,7 @@ const ProductGrid = ({ products }) => {
   const visibleProducts = products.slice(0, loadedRows * itemsPerRow);
 
   return (
-    <section>
+    <section className='product-grid-section'>
     <header className='section-title'>
       <h2>Similar Products</h2>
       <p>Found {products.length} products</p>
