@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import '../../src/styles/ImageAnalysis.css';
 
+
 const ImageAnalysis = () => {
+
   const [selectedImage, setSelectedImage] = useState(null);
   const [analysisResults, setAnalysisResults] = useState(null);
 
