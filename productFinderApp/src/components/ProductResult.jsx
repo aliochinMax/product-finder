@@ -8,6 +8,7 @@ import { ItemTypes } from "./ItemTypes";
 import heic2any from "heic2any";
 import { imageFileResizer } from "react-image-file-resizer";
 import ProductCarousel from "./ProductCarousel";
+import { handleImageUpload } from "./utils/handleImageUpload";
 
 const RealTimeProductSearch = () => {
   const [productName, setProductName] = useState("");
@@ -102,88 +103,16 @@ const RealTimeProductSearch = () => {
   };
 
   //handle the image that has been uploaded
-// handle the image that has been uploaded
-const handleImageUpload = async (imageFile) => {
-  try {
-    let convertedImage;
-
-    // Check if the file type is SVG, PNG, or already in JPEG format
-    if (
-      imageFile.type.startsWith("image/svg+xml") ||
-      imageFile.type.startsWith("image/png") ||
-      imageFile.type.startsWith("image/jpeg")
-    ) {
-      // No conversion needed for SVG, PNG, or JPEG files
-      convertedImage = imageFile;
-    } else {
-      // Convert to JPEG using heic2any for other formats
-      convertedImage = await heic2any({ blob: imageFile });
+  const handleImageUploadAndProcess = async (imageFile) => {
+    try {
+      const visionApiResponse = await handleImageUpload(imageFile);
+      const itemName = extractItemNameFromResponse(visionApiResponse);
+      setProductName(itemName);
+      fetchData(itemName);
+    } catch (error) {
+      setError(error);
     }
-
-    const reader = new FileReader();
-    reader.onload = async () => {
-      const imageContent = reader.result.split(",")[1];
-
-      // set the endpoint for the google vision api
-      const visionApiEndpoint =
-        "https://vision.googleapis.com/v1/images:annotate";
-      const apiKey = import.meta.env.VITE_REACT_APP_GOOGLE_VISION_API;
-
-      try {
-        const visionApiResponse = await axios.post(
-          `${visionApiEndpoint}?key=${apiKey}`,
-          {
-            requests: [
-              {
-                image: {
-                  content: imageContent,
-                },
-                features: [
-                  {
-                    type: "PRODUCT_SEARCH",
-                    maxResults: 10,
-                  },
-                  {
-                    type: "LABEL_DETECTION",
-                    maxResults: 5,
-                  },
-                  {
-                    type: "LOGO_DETECTION",
-                    maxResults: 5,
-                  },
-                  {
-                    type: "TEXT_DETECTION",
-                    maxResults: 5,
-                  },
-                ],
-              },
-            ],
-          },
-          {
-            headers: {
-              "Content-Type": "application/json",
-            },
-          }
-        );
-
-        // retrieve the name of the product from the Google API
-        console.log('Google Vision API Response:', visionApiResponse);
-
-        const itemName = extractItemNameFromResponse(visionApiResponse);
-        setProductName(itemName);
-        fetchData(itemName);
-      } catch (error) {
-        setError(error);
-        console.error("Error processing image:", error);
-      }
-    };
-
-    reader.readAsDataURL(convertedImage);
-  } catch (error) {
-    setError(error);
-    console.error("Error reading image:", error);
-  }
-};
+  };
 
 
   //fetch data from real-time-data api
@@ -230,7 +159,7 @@ const handleImageUpload = async (imageFile) => {
         <DragNDrop
           text={productName}
           dragType={ItemTypes.IMAGE}
-          onDrop={handleImageUpload}
+          onDrop={handleImageUploadAndProcess}
         />
       </div>
 
