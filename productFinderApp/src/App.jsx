@@ -8,6 +8,7 @@ import { HTML5Backend } from 'react-dnd-html5-backend';
 import RealTimeProductSearch from './components/ProductResult';
 import DragNDrop from './components/DragNDrop';
 import { ItemTypes } from './components/ItemTypes';
+import ImageAnalysis from './components/imageAnalysis';
 
 
 const handleDrop = ({ over }) => {
@@ -26,6 +27,7 @@ const App = () => {
           <DragNDrop key={product.name} text={product.name} dragType={ItemTypes.IMAGE} onDrop={handleDrop} />
         ))}
         <RealTimeProductSearch />
+        <ImageAnalysis />
       </div>
     </DndProvider>
   );
