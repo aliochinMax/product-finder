@@ -1,5 +1,6 @@
 import { useDrop } from 'react-dnd';
 import { NativeTypes } from 'react-dnd-html5-backend';
+import '../../src/styles/DragDrop.css'
 
 const DragNDrop = ({ onDrop }) => {
   const [{ isOver }, drop] = useDrop({
@@ -16,8 +17,11 @@ const DragNDrop = ({ onDrop }) => {
   });
 
   return (
-    <div ref={drop} style={{ width: 350, height: 350, marginLeft: 350, border: isOver ? '2px solid red' : '2px dashed black', padding: '20px' }}>
-      <p>Drop an image here</p>
+    <div className='drag-drop-container'>
+    <div ref={drop} className='drag-drop'>
+      <p className='center-text-drag'>Drop an image here</p>
+    </div>
+
     </div>
   );
 };
