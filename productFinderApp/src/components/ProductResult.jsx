@@ -100,7 +100,7 @@ const RealTimeProductSearch = () => {
     return "Unknown Item";
   };
 
-  //handle the image that has been uploaded
+//handle the image that has been uploaded
 // handle the image that has been uploaded
 const handleImageUpload = async (imageFile) => {
   try {
