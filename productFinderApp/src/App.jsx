@@ -9,6 +9,7 @@ import RealTimeProductSearch from './components/ProductResult';
 import DragNDrop from './components/DragNDrop';
 import { ItemTypes } from './components/ItemTypes';
 import ImageAnalysis from './components/imageAnalysis';
+import LogoJumbotron from './components/ProductCard/LogoJumbo';
 
 
 const handleDrop = ({ over }) => {
@@ -23,9 +24,11 @@ const App = () => {
   return (
     <DndProvider backend={HTML5Backend}>
       <div>
+        <LogoJumbotron />
         {products.map((product) => (
           <DragNDrop key={product.name} text={product.name} dragType={ItemTypes.IMAGE} onDrop={handleDrop} />
         ))}
+        
         <RealTimeProductSearch />
         <ImageAnalysis />
       </div>

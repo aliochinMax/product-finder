@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import '../../src/styles/ImageAnalysis.css';
 
 const ImageAnalysis = () => {
   const [selectedImage, setSelectedImage] = useState(null);
@@ -49,11 +50,14 @@ const ImageAnalysis = () => {
   };
 
   return (
-    <div>
-      <input type="file" onChange={handleImageChange} />
-      <br />
-      <button onClick={handleUploadAndAnalyze}>Upload and Analyze Image</button>
-
+<div className="center-container">
+  <div className="button-container">
+    <label className="file-input-container">
+      <input type="file" className="file-input" onChange={handleImageChange} />
+      <span className="upload-image-button">Choose File</span>
+    </label>
+    <button className='submit-upload' onClick={handleUploadAndAnalyze}>Upload and Analyze Image</button>
+  </div>
       {analysisResults && (
         <div>
           <h2>Analysis Results:</h2>
@@ -79,4 +83,3 @@ const ImageAnalysis = () => {
 };
 
 export default ImageAnalysis;
-
