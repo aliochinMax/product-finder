@@ -9,7 +9,6 @@ import RealTimeProductSearch from './components/ProductResult';
 import DragNDrop from './components/DragNDrop';
 import { ItemTypes } from './components/ItemTypes';
 
-
 const handleDrop = ({ over }) => {
   if (over) {
     console.log('Dropped over:', over);
@@ -20,6 +19,7 @@ const App = () => {
   const [products, setProducts] = useState([]);
 
   return (
+    <>
     <DndProvider backend={HTML5Backend}>
       <div>
         {products.map((product) => (
@@ -28,6 +28,7 @@ const App = () => {
         <RealTimeProductSearch />
       </div>
     </DndProvider>
+    </>
   );
 };
 
