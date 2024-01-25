@@ -9,17 +9,14 @@ import heic2any from "heic2any";
 import { imageFileResizer } from "react-image-file-resizer";
 import ProductCarousel from "./ProductCarousel";
 import {handleImageUpload} from "./utils/ImageHandlingAndApiCall"
-import { handleUploadAndAnalyze } from "./utils/handleUploadAndAnalyze";
 import AnalysisResults from "./analysisResults";
-
+import ProductDisplay from "./ProductDisplay";
+import { useAppState } from "./AppState"
 const ProductResult = ({inputImageFile = null}) => {
   const [productName, setProductName] = useState("");
-  const [productData, setProductData] = useState(null);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
   const [imageFile, setImageFile] = useState(inputImageFile);
   const [handledImageFile, setHandledImageFile] = useState(false);
-  const [analysisResults, setAnalysisResults] = useState(null);
+  const { productData, analysisResults, loading, error, updateState } = useAppState();
 
   
   const imageFileRef = useRef(imageFile)
@@ -27,7 +24,7 @@ const ProductResult = ({inputImageFile = null}) => {
   // Function to modify product data
  
   const handleImageUploadWrapper = async (imageFile) => {
-    handleUploadAndAnalyze(imageFile, setProductName, setError, setLoading, setProductData, setAnalysisResults);
+    handleUploadAndAnalyze(selectedImage, { setProductData, setLoading, setError });
   };
 
   // useEffect(() => {
@@ -116,14 +113,12 @@ const ProductResult = ({inputImageFile = null}) => {
       <div ref={drop}>
         {loading && <p>Loading...</p>}
         {error && <p>Error: {error.message}</p>}
-        {productData && Array.isArray(productData) && productData.length > 0 && (
-          <div>
-            <ProductCarousel products={productData} />
-            <ProductGrid products={productData} />
-          </div>
-        )}
-        <AnalysisResults analysisResults={analysisResults}/>
-
+        <ProductDisplay
+          productData={productData}
+          analysisResults={analysisResults}
+          loading={loading}
+          error={error}
+        />
       </div>
     </>
   );

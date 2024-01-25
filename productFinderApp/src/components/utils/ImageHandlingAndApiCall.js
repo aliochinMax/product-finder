@@ -10,8 +10,8 @@ const modifyData = (products) => {
     const imagesValue = Array.isArray(product.product_photos)
       ? product.product_photos
       : [product.product_photos];
-    
-    modifiedData.push( {
+
+    modifiedData.push({
       name: product.product_title,
       description: product.product_description,
       retailer: product.offer.store_name,
@@ -21,10 +21,10 @@ const modifyData = (products) => {
       link: product.offer.offer_page_url,
       images: imagesValue,
     });
-    
   });
   return modifiedData;
 };
+
 // Utility function to handle image upload
 
 // Utility function to extract item name from response
@@ -39,128 +39,119 @@ const extractItemNameFromResponse = (response, setProductName) => {
 
 // Utility function to fetch data from real-time-data API
 
-  export const handleImageUpload = async (
-    imageFile,
-    setProductName,
-    setError,
-    setLoading,
+export const handleImageUpload = async (imageFile, setProductData, setLoading, setError) => {
+  let convertedImage;
 
-  ) => {
-    const fetchData = async ( //This is horrific and I hate it, if I had time I would re write all of these functions to not have states within them
-      itemName,
-      setLoading,
-      setProductData,
-      setError
-    ) => {
-      let retrievedData;
-      const options = {
-        method: "GET",
-        url: "https://real-time-product-search.p.rapidapi.com/search",
-        params: {
-          q: itemName,
-          country: "gb",
-          language: "en",
-          limit: 29,
-          sort_by: "LOWEST_PRICE",
-        },
-        headers: {
-          "X-RapidAPI-Key": import.meta.env.VITE_REACT_APP_RAPIDAPI_KEY,
-          "X-RapidAPI-Host": import.meta.env.VITE_REACT_APP_RAPIDAPI_HOST,
-        },
-      };
-    
+  if (
+    imageFile.type.startsWith("image/svg+xml") ||
+    imageFile.type.startsWith("image/png") ||
+    imageFile.type.startsWith("image/jpeg")
+  ) {
+    convertedImage = imageFile;
+  } else {
+    convertedImage = await heic2any({ blob: imageFile });
+  }
+
+  const reader = new FileReader();
+
+  // Wrap the entire asynchronous operation in a Promise
+  const visionApiResponse = new Promise((resolve, reject) => {
+    reader.onload = async () => {
+      const imageContent = reader.result.split(",")[1];
+
+      const visionApiEndpoint =
+        "https://vision.googleapis.com/v1/images:annotate";
+      const apiKey = import.meta.env.VITE_REACT_APP_GOOGLE_VISION_API;
+
       try {
-        setLoading(true);
-        const response = await axios.request(options);
-        retrievedData = response.data;
-        console.log(retrievedData)
-      } catch (error) {
-        setError(error);
-        console.error("Error fetching data:", error.response);
-      } finally {
-        setLoading(false);
-        return retrievedData;
-      }
-    };
-  
-    try {
-      let convertedImage;
-  
-      if (
-        imageFile.type.startsWith("image/svg+xml") ||
-        imageFile.type.startsWith("image/png") ||
-        imageFile.type.startsWith("image/jpeg")
-      ) {
-        convertedImage = imageFile;
-      } else {
-        convertedImage = await heic2any({ blob: imageFile });
-      }
-  
-      const reader = new FileReader();
-  
-      // Wrap the entire asynchronous operation in a Promise
-      const visionApiResponse = await new Promise((resolve, reject) => {
-        reader.onload = async () => {
-          const imageContent = reader.result.split(",")[1];
-  
-          const visionApiEndpoint =
-            "https://vision.googleapis.com/v1/images:annotate";
-          const apiKey = import.meta.env.VITE_REACT_APP_GOOGLE_VISION_API;
-  
-          try {
-            const response = await axios.post(
-              `${visionApiEndpoint}?key=${apiKey}`,
+        const response = await axios.post(
+          `${visionApiEndpoint}?key=${apiKey}`,
+          {
+            requests: [
               {
-                requests: [
-                  {
-                    image: {
-                      content: imageContent,
-                    },
-                    features: [
-                      { type: "PRODUCT_SEARCH", maxResults: 10 },
-                      { type: "LABEL_DETECTION", maxResults: 5 },
-                      { type: "LOGO_DETECTION", maxResults: 5 },
-                      { type: "TEXT_DETECTION", maxResults: 5 },
-                    ],
-                  },
+                image: {
+                  content: imageContent,
+                },
+                features: [
+                  { type: "PRODUCT_SEARCH", maxResults: 10 },
+                  { type: "LABEL_DETECTION", maxResults: 5 },
+                  { type: "LOGO_DETECTION", maxResults: 5 },
+                  { type: "TEXT_DETECTION", maxResults: 5 },
                 ],
               },
-              {
-                headers: {
-                  "Content-Type": "application/json",
-                },
-              }
-            );
-  
-            resolve(response);
-          } catch (error) {
-            reject(error);
+            ],
+          },
+          {
+            headers: {
+              "Content-Type": "application/json",
+            },
           }
-        };
-  
-        reader.readAsDataURL(convertedImage);
-      });
-  
-      console.log("Google Vision API Response:", visionApiResponse);
-  
-      const itemName = extractItemNameFromResponse(
-        visionApiResponse,
-        setProductName
-      );
-      setProductName(itemName);
-  
-      // Pass setLoading as an argument to the fetchData function
-      const fetchResponse = await fetchData(
-        itemName,
-        setLoading,
-        setProductName,
-        setError
-      );
-  
-      console.log(`Fetch Response ${fetchResponse}`);
-      return modifyData(fetchResponse.data);
+        );
+
+        resolve(response);
+      } catch (error) {
+        reject(error);
+      }
+    };
+
+    reader.readAsDataURL(convertedImage);
+  });
+
+  console.log("Google Vision API Response:", visionApiResponse);
+
+  const extractItemName = (response, setProductName) => {
+    if (response?.data?.responses?.[0]?.fullTextAnnotation) {
+      const extractedText = response.data.responses[0].fullTextAnnotation.text;
+      setProductName(extractedText);
+      return extractedText;
+    }
+    return "Unknown Item";
+  };
+
+  const fetchData = async (itemName) => {
+    let retrievedData;
+    const options = {
+      method: "GET",
+      url: "https://real-time-product-search.p.rapidapi.com/search",
+      params: {
+        q: itemName,
+        country: "gb",
+        language: "en",
+        limit: 29,
+        sort_by: "LOWEST_PRICE",
+      },
+      headers: {
+        "X-RapidAPI-Key": import.meta.env.VITE_REACT_APP_RAPIDAPI_KEY,
+        "X-RapidAPI-Host": import.meta.env.VITE_REACT_APP_RAPIDAPI_HOST,
+      },
+    };
+
+    try {
+      setLoading(true);
+      const response = await axios.request(options);
+      retrievedData = response.data;
+      console.log(retrievedData);
     } catch (error) {
       setError(error);
-      console.error("Error handling image:", error);
+      console.error("Error fetching data:", error.response);
+    } finally {
+      setLoading(false);
+      return retrievedData;
     }
   };
+
+  const handleVisionApiResponse = async (visionApiResponse, setProductName) => {
+    const itemName = extractItemName(visionApiResponse, setProductName);
+    const retrievedData = await fetchData(itemName);
+    const modifiedData = modifyData(retrievedData);
+    setProductData(modifiedData);
+  };
+
+  visionApiResponse.then((response) => {
+    handleVisionApiResponse(response, setProductName);
+  }).catch((error) => {
+    console.error("Error in visionApiResponse:", error);
+    setError(error);
+    setLoading(false);
+  });
+};

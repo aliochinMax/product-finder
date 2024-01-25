@@ -10,6 +10,7 @@ import DragNDrop from './components/DragNDrop';
 import { ItemTypes } from './components/ItemTypes';
 import ImageAnalysis from './components/imageAnalysis';
 import LogoJumbotron from './components/ProductCard/LogoJumbo';
+import { AppStateProvider } from "./components/AppState";
 
 const handleDrop = ({ over }) => {
   if (over) {
@@ -18,20 +19,23 @@ const handleDrop = ({ over }) => {
 };
 
 const App = () => {
-  const [products, setProducts] = useState([]);
+  const [productData, setProductData] = useState(null);
+  const [analysisResults, setAnalysisResults] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
 
   return (
     <>
     <DndProvider backend={HTML5Backend}>
+      <AppStateProvider>
       <div>
         <LogoJumbotron />
-        {products.map((product) => (
-          <DragNDrop key={product.name} text={product.name} dragType={ItemTypes.IMAGE} onDrop={handleDrop} />
-        ))}
+        
         
         <RealTimeProductSearch />
         <ImageAnalysis />
       </div>
+      </AppStateProvider>
     </DndProvider>
     </>
   );

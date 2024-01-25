@@ -3,18 +3,17 @@ import '../../src/styles/ImageAnalysis.css';
 import ProductCarousel from "./ProductCarousel";
 import ProductGrid from "./ProductGrid";
 import {handleImageUpload} from "./utils/ImageHandlingAndApiCall"
-import { handleUploadAndAnalyze } from './utils/handleUploadAndAnalyze';
 import AnalysisResults from './analysisResults';
+import ProductDisplay from "./ProductDisplay";
+import { useAppState } from "./AppState"
+
 const ImageAnalysis = () => {
 
   const [selectedImage, setSelectedImage] = useState(null);
-  const [analysisResults, setAnalysisResults] = useState(null);
+  const { productData, analysisResults, loading, error, updateState, handleUploadAndAnalyze } = useAppState();
 
   //Sorry abigail for cluttering your code with these states sadly I cannot get rid of them due to how ProductResults was set up and my lack of brain power
   const [productName, setProductName] = useState("");
-  const [productData, setProductData] = useState(null);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
 
   const handleImageChange = (e) => {
     if (e.target.files[0]) {
@@ -22,7 +21,7 @@ const ImageAnalysis = () => {
     }
   };
   const handleUploadAndAnalyzeWrapper = () => {
-    handleUploadAndAnalyze(selectedImage, setProductName, setError, setLoading, setProductData, setAnalysisResults);
+    handleUploadAndAnalyze(selectedImage, setProductName);
   }
   
   return (
@@ -36,19 +35,12 @@ const ImageAnalysis = () => {
       <button className='submit-upload' onClick={handleUploadAndAnalyzeWrapper}>Upload and Analyze Image</button>
     </div>
     </div>
-    {
-      <>
-          {loading && <p>Loading...</p>}
-          {error && <p>Error: {error.message}</p>}
-          {productData && Array.isArray(productData) && productData.length > 0 && (
-            <div>
-              <ProductCarousel products={productData} />
-              <ProductGrid products={productData} />
-            </div>
-          )}
-          </>
-    }
-    <AnalysisResults analysisResults={analysisResults}/>
+    <ProductDisplay
+        productData={productData}
+        analysisResults={analysisResults}
+        loading={loading}
+        error={error}
+      />
       </>
     );
   };
