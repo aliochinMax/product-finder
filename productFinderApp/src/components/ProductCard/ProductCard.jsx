@@ -125,9 +125,10 @@ function ProductCard({ images, name, price, isBest, description, link, rating, r
             "Item description could not be found"
           )}
         </p>{' '}
+        <div className='link-container'>
         <button className="product-link" onClick={() => openRetailerSite(link)}>
         <HiOutlineShoppingBag />
-        </button>{' '}
+        </button>{' '}</div>
     </div>
     </div>
   );

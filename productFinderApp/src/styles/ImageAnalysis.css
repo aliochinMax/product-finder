@@ -68,3 +68,129 @@
   .submit-upload:hover {
     background-color: var(--color-accent-pop);
   }
+
+
+
+  .matching-images {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  
+    color: var(--color-main-light);
+   
+    text-decoration: none;
+    font-family: "Lexend Zetta", sans-serif;
+
+    text-transform: uppercase;
+    background-color: var(--color-accent-dark);
+    margin-left: 50px;
+    margin-right: 50px;
+    border: solid 10px var(--color-accent-light);
+    border-radius: 40px;
+    padding: 50px;
+  }
+
+  .matching-list {
+    text-decoration: none;
+    list-style: none;
+    margin-top: 50px;
+    
+  }
+
+  .matching-list li,
+ul li {
+  
+  margin-bottom: 20px; /* Adjust the margin between list items */
+}
+  
+  .matching-list li a,
+  ul li a {
+    margin-bottom: 100px;
+    padding: 20px
+  }
+  .matching-images a ,
+  ul a {
+    text-decoration: none;
+    color: var(--color-main-light);
+    margin: 20px;
+    
+
+  }
+
+
+  .matching-images a:hover,
+ul a:hover {
+  color: var(--color-main-light);
+  background-color: var(--color-accent-pop);
+  border-radius: 20px;
+  padding: 5px;
+  margin-top: 20px;
+}
+
+
+.visually-similar {
+  margin-top: 50px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  color: var(--color-main-light);
+ 
+  text-decoration: none;
+  font-family: "Lexend Zetta", sans-serif;
+  font-weight: 900;
+  text-transform: uppercase;
+  background-color: var(--color-accent-dark);
+  margin-left: 50px;
+  margin-right: 50px;
+  border: solid 10px var(--color-accent-light);
+  border-radius: 40px;
+  padding: 50px;
+  text-align: center;
+}
+
+
+.visually-similar {
+
+  text-align: center; /* Center-align the content */
+}
+
+.visually-similar ul {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+}
+
+.visually-similar li {
+  flex: 0 0 calc(33.33% - 20px);
+  max-width: calc(33.33% - 20px);
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.visually-similar img {
+  width: 100%;
+  height: auto;
+  border-radius: 10px;
+}
+
+.visually-similar a {
+  text-decoration: none;
+  color: var(--color-main-light);
+  display: block; 
+  margin-top: 10px; 
+
+}
+
+.visually-similar a:hover {
+  color: var(--color-main-light);
+  background-color: var(--color-accent-pop);
+  border-radius: 20px;
+  padding: 20px;
+ 
+}

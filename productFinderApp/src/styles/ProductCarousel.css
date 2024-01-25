@@ -21,31 +21,40 @@
 }
 
 
-
 .carousel-container {
-    background-color: #657ed4;
-    max-width: 3000px;
-    margin: auto; 
-    border: 10px solid var(--color-accent-dark);
-    padding: 10px;
-    box-sizing: border-box;
-    border-radius: 40px;
-    display: flex; /* Set display to flex */
-    justify-content: center; /* Center items horizontally */
-    align-items: center; /* Center items vertically */
-    flex-direction: column; /* Stack items vertically */
-    padding: 50px;
-  }
+  background-color: #657ed4;
+  margin: 50px; 
+  border: 10px solid var(--color-accent-dark);
+  padding: 10px;
+  box-sizing: border-box;
+  border-radius: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  padding: 50px;
+}
 
-  .selected-products-section {
-    width: 100%; 
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
+.selected-products-section {
+  width: 100%; 
+  display: flex;
+  justify-content: center;
+  align-items: flex-start; /* Align items at the top */
+}
+
+.section-title {
+  text-align: center;
+  margin-top: 50px;
+  margin-bottom: 50px;
+  align-self: center;
+}
+
+/* Set a fixed height for the images within the carousel */
+.carousel-container .slick-slide img {
+  margin-top: 50px;
+  height: 800px; /* Adjust the height as needed */
+  object-fit: cover; /* Preserve aspect ratio while covering the entire container */
+  border-radius: var(--card-border-radius); /* Apply border-radius to images */
+}
 
 
-  .section-title {
-    margin-top: 50px;
-    margin-bottom: 50px;
-  }
