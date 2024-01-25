@@ -1,11 +1,19 @@
 import React, { useState } from 'react';
 import '../../src/styles/ImageAnalysis.css';
-
+import ProductCarousel from "./ProductCarousel";
+import ProductGrid from "./ProductGrid";
+import {handleImageUpload} from "./utils/ImageHandlingAndApiCall"
 
 const ImageAnalysis = () => {
 
   const [selectedImage, setSelectedImage] = useState(null);
   const [analysisResults, setAnalysisResults] = useState(null);
+
+  //Sorry abigail for cluttering your code with these states sadly I cannot get rid of them due to how ProductResults was set up and my lack of brain power
+  const [productName, setProductName] = useState("");
+  const [productData, setProductData] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
 
   const handleImageChange = (e) => {
     if (e.target.files[0]) {
@@ -18,6 +26,9 @@ const ImageAnalysis = () => {
       alert('Please select an image first.');
       return;
     }
+
+    const utilResponse = await handleImageUpload(selectedImage, setProductName, setError, setLoading); //I still hate this util function - Maksim
+    setProductData(utilResponse); //This makes it worse - Also Maksim
 
     // Convert the image to a base64-encoded string
     const reader = new FileReader();
@@ -52,6 +63,7 @@ const ImageAnalysis = () => {
   };
 
   return (
+  <>
 <div className="center-container">
   <div className="button-container">
     <label className="file-input-container">
@@ -60,9 +72,22 @@ const ImageAnalysis = () => {
     </label>
     <button className='submit-upload' onClick={handleUploadAndAnalyze}>Upload and Analyze Image</button>
   </div>
-    
+  </div>
+  {
+    <>
+        {loading && <p>Loading...</p>}
+        {error && <p>Error: {error.message}</p>}
+        {productData && Array.isArray(productData) && productData.length > 0 && (
+          <div>
+            <ProductCarousel products={productData} />
+            <ProductGrid products={productData} />
+          </div>
+        )}
+    </>
+  }
       {analysisResults && (
-        <div>
+        <>
+<div>
           <h2>Analysis Results:</h2>
           <ul>
             {analysisResults.webEntities.map((entity, index) => (
@@ -80,8 +105,9 @@ const ImageAnalysis = () => {
             ))}
           </ul>
         </div>
+        </>
       )}
-    </div>
+    </>
   );
 };
 

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import axios from "axios";
 import DragNDrop from "./DragNDrop";
 import ProductGrid from "./ProductGrid";
@@ -8,47 +8,34 @@ import { ItemTypes } from "./ItemTypes";
 import heic2any from "heic2any";
 import { imageFileResizer } from "react-image-file-resizer";
 import ProductCarousel from "./ProductCarousel";
-import {
-  handleImageUpload,
-  extractItemNameFromResponse,
-  fetchData,
-} from "./utils/ImageHandlingAndApiCall"
+import {handleImageUpload} from "./utils/ImageHandlingAndApiCall"
 
-const RealTimeProductSearch = () => {
+const ProductResult = ({inputImageFile = null}) => {
   const [productName, setProductName] = useState("");
   const [productData, setProductData] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
-  const [imageFile, setImageFile] = useState(null);
-
+  const [imageFile, setImageFile] = useState(inputImageFile);
+  const [handledImageFile, setHandledImageFile] = useState(false);
+  const imageFileRef = useRef(imageFile)
+ 
   // Function to modify product data
-  const modifyData = (products) => {
-    return products.map((product) => {
-      const shippingValue = product.offer.shipping ? product.offer.shipping : 0;
-      const imagesValue = Array.isArray(product.product_photos)
-        ? product.product_photos
-        : [product.product_photos];
-
-      return {
-        name: product.product_title,
-        description: product.product_description,
-        retailer: product.offer.store_name,
-        rating: product.offer.store_rating,
-        price: product.offer.price.replace(/£/g, ''),
-        shipping: shippingValue,
-        link: product.offer.offer_page_url,
-        images: imagesValue,
-      };
-    });
-  };
+ 
   const handleImageUploadWrapper = async (imageFile) => {
-    const utilResponse = await handleImageUpload(imageFile, setProductName, setError, setLoading, fetchData);
-    const parsedResponse = JSON.parse(utilResponse);
-    console.log(`Util Response ${utilResponse}`)
-    console.log(`Parsed Response ${parsedResponse.data[0].product_id}`)
-   
-    setProductData(modifyData(parsedResponse.data))
+    const utilResponse = await handleImageUpload(imageFile, setProductName, setError, setLoading);
+    console.log(`util response: ${utilResponse}`)
+    setProductData(utilResponse)
   };
+
+  useEffect(() => {
+    if (imageFile !== null && imageFileRef.current === null && !handledImageFile) {
+      handleImageUploadWrapper(imageFile);
+      setHandledImageFile(true);
+    } else if (imageFile === null) {
+      setHandledImageFile(false);
+    }
+    imageFileRef.current = imageFile;
+  }, [imageFile, handledImageFile]);
 
   // Function to handle image drop
   const handleImageDrop = async (item) => {
@@ -137,4 +124,4 @@ const RealTimeProductSearch = () => {
   );
 };
 
-export default RealTimeProductSearch;
+export default ProductResult;
