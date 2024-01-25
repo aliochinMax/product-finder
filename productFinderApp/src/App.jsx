@@ -25,9 +25,7 @@ const App = () => {
     <DndProvider backend={HTML5Backend}>
       <div>
         <LogoJumbotron />
-        {products.map((product) => (
-          <DragNDrop key={product.name} text={product.name} dragType={ItemTypes.IMAGE} onDrop={handleDrop} />
-        ))}
+     
         
         <RealTimeProductSearch />
         <ImageAnalysis />

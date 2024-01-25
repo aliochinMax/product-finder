@@ -10,7 +10,7 @@ import { imageFileResizer } from "react-image-file-resizer";
 import ProductCarousel from "./ProductCarousel";
 import {handleImageUpload} from "./utils/ImageHandlingAndApiCall"
 import { handleUploadAndAnalyze } from "./utils/handleUploadAndAnalyze";
-import AnalysisResults from "./analysisResults";
+import AnalysisResults from "./AnalysisResultsDisplay";
 
 const ProductResult = ({inputImageFile = null}) => {
   const [productName, setProductName] = useState("");

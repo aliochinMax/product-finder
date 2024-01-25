@@ -4,7 +4,7 @@ import ProductCarousel from "./ProductCarousel";
 import ProductGrid from "./ProductGrid";
 import {handleImageUpload} from "./utils/ImageHandlingAndApiCall"
 import { handleUploadAndAnalyze } from './utils/handleUploadAndAnalyze';
-import AnalysisResults from './analysisResults';
+import AnalysisResults from './AnalysisResultsDisplay';
 const ImageAnalysis = () => {
 
   const [selectedImage, setSelectedImage] = useState(null);

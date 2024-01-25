@@ -32,7 +32,7 @@ const ProductCarousel = ({ products }) => {
   );
 
   function calculateSlides() {
-    const breakpoint = 768;
+    const breakpoint = 1100;
 
     if (window.innerWidth < breakpoint) {
       return 1;
