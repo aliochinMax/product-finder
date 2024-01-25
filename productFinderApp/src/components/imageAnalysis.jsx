@@ -63,42 +63,26 @@ const ImageAnalysis = () => {
 
       try {
         const apiUrl = `https://vision.googleapis.com/v1/images:annotate?key=${apiKey}`;
-        const response = await fetch(apiUrl, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            requests: [{ image: { content: imageContent }, features: [
+        const response = await axios.post(apiUrl, {
+          requests: [{
+            image: { content: imageContent },
+            features: [
               { type: 'WEB_DETECTION' },
-              {
-              type: "PRODUCT_SEARCH",
-              maxResults: 10,
-            },
-            {
-              type: "LABEL_DETECTION",
-              maxResults: 5,
-            },
-            {
-              type: "LOGO_DETECTION",
-              maxResults: 5,
-            },
-            {
-              type: "TEXT_DETECTION",
-              maxResults: 5,
-            },
-            ] }],
-          }),
+              { type: "PRODUCT_SEARCH", maxResults: 10 },
+              { type: "LABEL_DETECTION", maxResults: 5 },
+              { type: "LOGO_DETECTION", maxResults: 5 },
+              { type: "TEXT_DETECTION", maxResults: 5 },
+            ],
+          }],
         });
 
-        const responseData = await response.json();
         // retrieve the name of the product from the Google API
         console.log('Google Vision API Response:', response);
 
         const itemName = extractItemNameFromResponse(response);
         setProductName(itemName);
         fetchData(itemName);
-        setAnalysisResults(responseData.responses[0].webDetection);
+        setAnalysisResults(response.data.responses[0].webDetection);
       } catch (error) {
         setError(error);
         console.error("Error processing image:", error);
@@ -106,6 +90,7 @@ const ImageAnalysis = () => {
     };
     reader.readAsDataURL(selectedImage);
   };
+
 
 
 
