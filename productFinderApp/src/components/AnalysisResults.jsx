@@ -1,7 +1,8 @@
 function AnalysisResults ({analysisResults}) {
-    {console.log(`component results: ${analysisResults}`)}
-    {analysisResults && (
+   return( 
     <>
+    {analysisResults && (
+    
 <div>
       <h2>Analysis Results:</h2>
       <ul>
@@ -20,8 +21,9 @@ function AnalysisResults ({analysisResults}) {
         ))}
       </ul>
     </div>
-    </>
+    
   )}
-        }
+  </>
+)};
 
 export default AnalysisResults;

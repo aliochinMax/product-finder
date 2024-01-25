@@ -9,6 +9,8 @@ import heic2any from "heic2any";
 import { imageFileResizer } from "react-image-file-resizer";
 import ProductCarousel from "./ProductCarousel";
 import {handleImageUpload} from "./utils/ImageHandlingAndApiCall"
+import { handleUploadAndAnalyze } from "./utils/handleUploadAndAnalyze";
+import AnalysisResults from "./analysisResults";
 
 const ProductResult = ({inputImageFile = null}) => {
   const [productName, setProductName] = useState("");
@@ -17,25 +19,26 @@ const ProductResult = ({inputImageFile = null}) => {
   const [error, setError] = useState(null);
   const [imageFile, setImageFile] = useState(inputImageFile);
   const [handledImageFile, setHandledImageFile] = useState(false);
+  const [analysisResults, setAnalysisResults] = useState(null);
+
+  
   const imageFileRef = useRef(imageFile)
  
   // Function to modify product data
  
   const handleImageUploadWrapper = async (imageFile) => {
-    const utilResponse = await handleImageUpload(imageFile, setProductName, setError, setLoading);
-    console.log(`util response: ${utilResponse}`)
-    setProductData(utilResponse)
+    handleUploadAndAnalyze(imageFile, setProductName, setError, setLoading, setProductData, setAnalysisResults);
   };
 
-  useEffect(() => {
-    if (imageFile !== null && imageFileRef.current === null && !handledImageFile) {
-      handleImageUploadWrapper(imageFile);
-      setHandledImageFile(true);
-    } else if (imageFile === null) {
-      setHandledImageFile(false);
-    }
-    imageFileRef.current = imageFile;
-  }, [imageFile, handledImageFile]);
+  // useEffect(() => {
+  //   if (imageFile !== null && imageFileRef.current === null && !handledImageFile) {
+  //     handleImageUploadWrapper(imageFile);
+  //     setHandledImageFile(true);
+  //   } else if (imageFile === null) {
+  //     setHandledImageFile(false);
+  //   }
+  //   imageFileRef.current = imageFile;
+  // }, [imageFile, handledImageFile]);
 
   // Function to handle image drop
   const handleImageDrop = async (item) => {
@@ -119,6 +122,8 @@ const ProductResult = ({inputImageFile = null}) => {
             <ProductGrid products={productData} />
           </div>
         )}
+        <AnalysisResults analysisResults={analysisResults}/>
+
       </div>
     </>
   );
