@@ -31,6 +31,8 @@ const App = () => {
         
         <RealTimeProductSearch />
         <ImageAnalysis />
+   
+     
       </div>
     </DndProvider>
     </>

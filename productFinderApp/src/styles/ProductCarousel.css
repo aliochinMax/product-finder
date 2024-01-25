@@ -1,0 +1,51 @@
+@import url('https://fonts.googleapis.com/css2?family=Lexend+Zetta:wght@100..900&display=swap');
+
+
+:root{
+  --product-card-width: 500px;
+  --product-card-height: fit-content;
+  --modal-max-width: 20%;
+  --modal-max-height: 10%;
+  --image-container-height: 400px;
+  --image-container-width:400px;
+  --card-border-radius: 40px;
+  --color-main-dark: #0d0106;
+  --color-main-light: #fbfbff;
+  --color-accent-pop: #ff331f;
+  --color-accent-dark: #3626a7;
+  --color-accent-light: #657ed4;
+  font-family: "Lexend Zetta", sans-serif;
+  font-weight: 900;
+  text-transform: uppercase;
+
+}
+
+
+
+.carousel-container {
+    background-color: #657ed4;
+    max-width: 3000px;
+    margin: auto; 
+    border: 10px solid var(--color-accent-dark);
+    padding: 10px;
+    box-sizing: border-box;
+    border-radius: 40px;
+    display: flex; /* Set display to flex */
+    justify-content: center; /* Center items horizontally */
+    align-items: center; /* Center items vertically */
+    flex-direction: column; /* Stack items vertically */
+    padding: 50px;
+  }
+
+  .selected-products-section {
+    width: 100%; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+
+  .section-title {
+    margin-top: 50px;
+    margin-bottom: 50px;
+  }
