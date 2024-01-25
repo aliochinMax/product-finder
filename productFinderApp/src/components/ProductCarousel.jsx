@@ -35,8 +35,8 @@ const ProductCarousel = ({ products }) => {
   
   function calculateSlides() {
     // Adjust the breakpoint value as needed
-    const breakpoint = 2000; //For when 3 items do not fit
-    const furtherBreakpoint = 1100; //For when only 1 item can fit
+    const breakpoint = 3100; //For when 3 items do not fit
+    const furtherBreakpoint = 2100; //For when only 1 item can fit
     if(window.innerWidth < furtherBreakpoint){
       return 1;
     }
@@ -83,11 +83,13 @@ const ProductCarousel = ({ products }) => {
     
     <section className='selected-products-section'>
     <h1 className='section-title'>Cheapest Found Products</h1>
-    <Slider {...settings}  >
+    <div className='section-products-carousel'>
+    <Slider {...settings} >
       {selectedProducts.map((product, index) => (
        <ProductCard key={index} isBest={index === 1} {...product} />
       ))}
     </Slider>
+    </div>
     </section>
   );
       
