@@ -44,6 +44,7 @@ const extractItemNameFromResponse = (response, setProductName) => {
     setProductName,
     setError,
     setLoading,
+
   ) => {
     const fetchData = async ( //This is horrific and I hate it, if I had time I would re write all of these functions to not have states within them
       itemName,
