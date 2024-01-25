@@ -35,8 +35,15 @@ const ProductCarousel = ({ products }) => {
   
   function calculateSlides() {
     // Adjust the breakpoint value as needed
-    const breakpoint = 2000;
-    return window.innerWidth < breakpoint ? 1 : 3;
+    const breakpoint = 2000; //For when 3 items do not fit
+    const furtherBreakpoint = 1100; //For when only 1 item can fit
+    if(window.innerWidth < furtherBreakpoint){
+      return 1;
+    }
+    else if(window.innerWidth < breakpoint){
+      return 2;
+    }
+    return 3;
   }
 
   useEffect(() => {
