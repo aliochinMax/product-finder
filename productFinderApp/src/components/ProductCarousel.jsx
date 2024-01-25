@@ -1,5 +1,5 @@
 // ProductCarousel.js
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
@@ -31,7 +31,26 @@ const ProductCarousel = ({ products }) => {
   // Sort products based on price (from lowest to highest)
   const sortedProducts = [...products].sort((a, b) => a.price - b.price);
   const selectedProducts = findSelectedProducts(sortedProducts);
+  const [amountSlidesDisplayed, setAmountSlidesDisplayed] = useState(calculateSlides())
+  
+  function calculateSlides() {
+    // Adjust the breakpoint value as needed
+    const breakpoint = 2000;
+    return window.innerWidth < breakpoint ? 1 : 3;
+  }
 
+  useEffect(() => {
+    function handleResize() {
+      setAmountSlidesDisplayed(calculateSlides());
+    }
+
+    window.addEventListener('resize', handleResize);
+
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
+  
   if (selectedProducts.length === 0) {
     // If there are no selected products dont render anything
     console.log("No selected products found");
@@ -41,7 +60,7 @@ const ProductCarousel = ({ products }) => {
     dots: true,
     infinite: false,
     speed: 500,
-    slidesToShow: 3,
+    slidesToShow: amountSlidesDisplayed,
     slidesToScroll: 1,
     responsive: [
       {

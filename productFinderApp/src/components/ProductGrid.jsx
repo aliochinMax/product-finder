@@ -1,12 +1,31 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import ProductCard from './ProductCard/ProductCard';
 import '../styles/ProductGrid.css'
 const ProductGrid = ({ products }) => {
   //Controls 
-  const itemsPerRow = 3; 
   const rowsPerLoad = 2;
 
   const [loadedRows, setLoadedRows] = useState(rowsPerLoad);
+  const [itemsPerRow, setItemsPerRow] = useState(calculateItemsPerRow());
+  
+  function calculateItemsPerRow() {
+    // Adjust the breakpoint value as needed
+    const breakpoint = 2000;
+    return window.innerWidth < breakpoint ? 1 : 3;
+  }
+
+  useEffect(() => {
+    function handleResize() {
+      setItemsPerRow(calculateItemsPerRow());
+    }
+
+    window.addEventListener('resize', handleResize);
+
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
+
 
   const loadMoreRows = () => {
     const remainingRows = Math.ceil((products.length - loadedRows) / itemsPerRow);
