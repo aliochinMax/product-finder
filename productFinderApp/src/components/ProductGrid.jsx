@@ -50,7 +50,10 @@ const ProductGrid = ({ products }) => {
       ))}
 
       {loadedRows * itemsPerRow < products.length && (
-        <button onClick={loadMoreRows}>Load More</button>
+        <div className='loadMoreContainer'>
+        <button onClick={loadMoreRows} className='loadMoreButton'>Load More</button>
+</div>
+
       )}
     </section>
   );
