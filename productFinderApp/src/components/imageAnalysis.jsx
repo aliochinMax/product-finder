@@ -60,6 +60,7 @@ const ImageAnalysis = () => {
     </label>
     <button className='submit-upload' onClick={handleUploadAndAnalyze}>Upload and Analyze Image</button>
   </div>
+    
       {analysisResults && (
         <div>
           <h2>Analysis Results:</h2>
