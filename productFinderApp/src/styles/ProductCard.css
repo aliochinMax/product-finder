@@ -56,6 +56,7 @@
     justify-content: center;
     font-family: "Lexend Zetta", sans-serif;
     font-weight: 900;
+/* flex-wrap: wrap; */
 }
 
 .product-card:hover {
@@ -64,7 +65,6 @@
 }
 
 .product-image-container{
-  margin: 40px;
   height: var(--image-container-height);
   width: var(--image-container-width);
   border-radius: var(--card-border-radius);
@@ -72,8 +72,6 @@
   display: flex;
   align-items: center;
   justify-content: center;
-
-  
 }
 
 .product-modal-image-container{
@@ -96,26 +94,27 @@
 }
 .product-details {
    margin-left: 20px;
-    display: grid;
+    display: flex;
+    flex-direction: column;
     padding: 30px;
-    grid-template-areas:
+    /* grid-template-areas:
       "name price"
       "rating retailer"
       "description description"
       "description description"
-      ". link"; 
+      ". link"; */
   }
-  
 
- 
-  
+
+
+
 
   .product-name {
     grid-area: name;
     width: calc(var(--product-card-width)/1.4);
-    
+
   }
-  
+
   .product-price-details {
     grid-area: price;
     width: fit-content;
@@ -127,11 +126,11 @@
     padding: 10px;
     border-radius: var(--card-border-radius);
   }
-  
+
   .product-description {
     grid-area: description;
   }
-  
+
   .product-link {
     grid-area: link;
     background-color: var(--color-accent-light);
@@ -157,26 +156,26 @@
     font-weight: bold;
   }
   .modal{
-    overflow: hidden; 
-    
-    
+    overflow: hidden;
+
+
   }
- 
+
   .modal-overlay {
-    
+
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.5); 
-    z-index: 1000; 
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 1000;
     display: flex;
     justify-content: center;
     align-items: center;
     padding: 0;
     border: none;
-    overflow: hidden; 
+    overflow: hidden;
   }
 
   .react-responsive-modal-modal {
@@ -187,23 +186,23 @@
 
   .slick-dots {
     position: absolute !important;
-    bottom: 10px !important; 
-    left: 50% !important; 
-    transform: translateX(-50%); 
-    z-index: 1; 
+    bottom: 10px !important;
+    left: 50% !important;
+    transform: translateX(-50%);
+    z-index: 1;
   }
   .slick-slider {
     width: 100%;
     max-height: 100%;
-    
-    
+
+
   }
-  
+
   .slick-list {
     height: 100%;
-    
+
   }
-  
+
   .slick-slide {
     display: flex;
     align-items: center;
