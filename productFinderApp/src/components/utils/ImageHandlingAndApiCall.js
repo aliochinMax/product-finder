@@ -10,7 +10,7 @@ const modifyData = (products) => {
     const imagesValue = Array.isArray(product.product_photos)
       ? product.product_photos
       : [product.product_photos];
-    
+
     modifiedData.push( {
       name: product.product_title,
       description: product.product_description,
@@ -21,7 +21,7 @@ const modifyData = (products) => {
       link: product.offer.offer_page_url,
       images: imagesValue,
     });
-    
+
   });
   return modifiedData;
 };
@@ -68,12 +68,11 @@ const extractItemNameFromResponse = (response, setProductName) => {
           "X-RapidAPI-Host": import.meta.env.VITE_REACT_APP_RAPIDAPI_HOST,
         },
       };
-    
+
       try {
         setLoading(true);
         const response = await axios.request(options);
         retrievedData = response.data;
-        console.log(retrievedData)
       } catch (error) {
         setError(error);
         console.error("Error fetching data:", error.response);
@@ -82,10 +81,10 @@ const extractItemNameFromResponse = (response, setProductName) => {
         return retrievedData;
       }
     };
-  
+
     try {
       let convertedImage;
-  
+
       if (
         imageFile.type.startsWith("image/svg+xml") ||
         imageFile.type.startsWith("image/png") ||
@@ -95,18 +94,18 @@ const extractItemNameFromResponse = (response, setProductName) => {
       } else {
         convertedImage = await heic2any({ blob: imageFile });
       }
-  
+
       const reader = new FileReader();
-  
+
       // Wrap the entire asynchronous operation in a Promise
       const visionApiResponse = await new Promise((resolve, reject) => {
         reader.onload = async () => {
           const imageContent = reader.result.split(",")[1];
-  
+
           const visionApiEndpoint =
             "https://vision.googleapis.com/v1/images:annotate";
           const apiKey = import.meta.env.VITE_REACT_APP_GOOGLE_VISION_API;
-  
+
           try {
             const response = await axios.post(
               `${visionApiEndpoint}?key=${apiKey}`,
@@ -131,24 +130,24 @@ const extractItemNameFromResponse = (response, setProductName) => {
                 },
               }
             );
-  
+
             resolve(response);
           } catch (error) {
             reject(error);
           }
         };
-  
+
         reader.readAsDataURL(convertedImage);
       });
-  
-      console.log("Google Vision API Response:", visionApiResponse);
-  
+
+
+
       const itemName = extractItemNameFromResponse(
         visionApiResponse,
         setProductName
       );
       setProductName(itemName);
-  
+
       // Pass setLoading as an argument to the fetchData function
       const fetchResponse = await fetchData(
         itemName,
@@ -156,8 +155,8 @@ const extractItemNameFromResponse = (response, setProductName) => {
         setProductName,
         setError
       );
-  
-      console.log(`Fetch Response ${fetchResponse}`);
+
+
       return modifyData(fetchResponse.data);
     } catch (error) {
       setError(error);
